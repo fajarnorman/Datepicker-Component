@@ -61,8 +61,6 @@
 </template>
 
 <script>
-import moment from 'moment'
-
 export default {
 	name: "DatePicker",
 	props: {
@@ -113,10 +111,14 @@ export default {
 	},
 	mounted(){
 		this.$nextTick(() => {
-			if(this.$el.parentNode.offsetWidth + this.$el.parentNode.offsetLeft - this.$el.offsetLeft <= 300){
-				this.coordinates = {right: '0', top: `${window.getComputedStyle(this.$el.children[0]).offsetHeight + 4}px`}
-			}else{
-				this.coordinates = {left: '0', top: `${window.getComputedStyle(this.$el.children[0]).offsetHeight + 4}px`}
+			if(this.$el.parentNode){
+				if(this.$el.parentNode.offsetWidth !== null && this.$el.parentNode.offsetLeft !== null && this.$el.offsetLeft !== null){
+					if(this.$el.parentNode.offsetWidth + this.$el.parentNode.offsetLeft - this.$el.offsetLeft <= 300){
+						this.coordinates = {right: '0', top: `${window.getComputedStyle(this.$el.children[0]).offsetHeight + 4}px`}
+					}else{
+						this.coordinates = {left: '0', top: `${window.getComputedStyle(this.$el.children[0]).offsetHeight + 4}px`}
+					}
+				}
 			}
 
 			if(!this.value){
