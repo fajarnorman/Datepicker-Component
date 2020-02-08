@@ -16,4 +16,10 @@ npm run build
 
 # test
 npm run test
+
+# run vuepress development
+npm run docs:dev
+
+# run vupress production
+npm run docs:build
 ```

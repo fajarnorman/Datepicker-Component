@@ -1,5 +1,5 @@
 <template>
-	<div class="date-picker" :aria-disabled="disabled" :class="[size, {isDisabled: disabled}]" :style="{ width: width }">
+	<div class="date-picker" :aria-disabled="disabled" :class="[size, {isDisabled: disabled}]" :style="{ width: width + '%' }">
 		<div class="input-container">
 			<div class="input" @click="togglePanel" v-text="value !== '' ? value : placeholder"></div>
 		</div>
@@ -81,7 +81,7 @@ export default {
 			default: 'is-medium'
 		},
 		width: {
-			type: String,
+			type: Number,
 			default: ''
 		}
 	},
@@ -192,6 +192,7 @@ export default {
 				this.month = this.secondMonth
 				this.date = date.value
 				let value = `${this.secondYear}-${('0' + (this.month + 1)).slice(-2)}-${('0' + this.date).slice(-2)}`
+				this.$emit('input', value)
 				this.value = value
 				this.panelState = false
 			}, 0)
@@ -231,6 +232,12 @@ export default {
 </script>
 
 <style lang="scss">
+$color-bg-active: #0072ff;
+$color-white: #ffffff;
+$color-border: #cccccc;
+$color-valid: #eeeeee;
+$color-input-disabled: #cacaca;
+
 ul{
 	padding: 0;
 	margin: 0;
@@ -260,13 +267,13 @@ ul{
 	}
 	&.isDisabled{
 		.input-container{
-			background: #cacaca;
+			background: $color-input-disabled;
 			cursor: not-allowed;
 		}
 	}
 	.input-container{
-		background: #fff;
-		border: 1px solid #ccc;
+		background: $color-white;
+		border: 1px solid $color-border;
 		border-radius: 4px;
 		vertical-align: middle;
 		display: flex;
@@ -289,12 +296,12 @@ ul{
 	.date-panel{
 		position: absolute;
 		z-index: 5000;
-		border: 1px solid #eee;
+		border: 1px solid $color-valid;
 		box-sizing: border-box;
 		width: 320px;
 		padding: 5px 10px 10px;
 		box-sizing: border-box;
-		background-color: #fff;
+		background-color: $color-white;
 		transform: translateY(4px);
 		.panel-header{
 			display: flex;
@@ -304,7 +311,7 @@ ul{
 				flex: 1;
 				font-size: 20px;
 				line-height: 2;
-				background-color: #fff;
+				background-color: $color-white;
 				text-align: center;
 				cursor: pointer;
 			}
@@ -316,37 +323,38 @@ ul{
 			justify-content: space-around;
 			.year-box, .month-box{
 				transition: all ease .1s;
-				font-family: Arial, sans-serif;
 				flex: 1;
 				text-align: center;
-				font-size: 20px;
+				font-size: 18px;
+				margin-top: 2px;
 				line-height: 2;
 				cursor: pointer;
-				background-color: #fff;
+				background-color: $color-white;
 			}
 		}
 		.content-type-year, .content-type-month, .date-list{
-			background-color: #fff;
+			background-color: $color-white;
 		}
 		.year-list, .month-list{
 			display: flex;
 			flex-flow: row wrap;
 			justify-content: space-between;
 			li{
-				font-family: Arial, sans-serif;
 				transition: all .4s ease;
 				cursor: pointer;
 				text-align: center;
-				font-size: 20px;
+				font-size: 16px;
+				border-radius: 4px;
 				width: 33%;
 				padding: 10px 0;
+				margin: 2.5px 0;
 				&:hover{
-					background-color: #6ac1c9;
-					color: #fff;
+					background-color: $color-bg-active;
+					color: $color-white;
 				}
 				&.selected{
-					background-color: #0097a7;
-					color: #fff;
+					background-color: $color-bg-active;
+					color: $color-white;
 				}
 			}
 		}
@@ -363,12 +371,12 @@ ul{
 				width: 100%;
         text-align: center;
         .preMonth, .nextMonth{
-          color: #ccc;
+          color: $color-border;
         }
         li{
-					font-family: Arial;
 					width: 30px;
 					height: 30px;
+					font-size: 14px;
 					text-align: center;
 					line-height: 30px;
         }
@@ -378,30 +386,29 @@ ul{
         flex-flow: row wrap;
         justify-content: space-between;
 				.valid:hover{
-          background-color: #eee;
+          background-color: $color-valid;
         }
 				li{
 					transition: all .1s ease;
 					cursor: pointer;
 					box-sizing: border-box;
-					border-bottom: 1px solid #fff;
+					border-bottom: 1px solid $color-white;
 					position: relative;
 					margin: 2px;
 					&:not(.firstItem){
 						margin-left: 10px;
 					}
 					.date-txt{
-						font-family: Arial, sans-serif;
 						font-weight: 300;
 						font-size: 14px;
 						position: relative;
 						height: 30px;
 						&.selected{
 							.bg{
-								background-color: rgb(0, 151, 167);
+								background-color: $color-bg-active;
 							}
 							span{
-								color: #fff;
+								color: $color-white;
 							}
 						}
 						&:not(.selected){
@@ -411,12 +418,12 @@ ul{
 							}
 							&:hover{
 								.bg{
-									background-color: rgb(0, 151, 167);
+									background-color: $color-bg-active;
 									transform: scale(1);
 									opacity: .6;
 								}
 								span{
-									color: #fff;
+									color: $color-white;
 								}
 							}
 						}
