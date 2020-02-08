@@ -193,6 +193,7 @@ export default {
 				this.date = date.value
 				let value = `${this.secondYear}-${('0' + (this.month + 1)).slice(-2)}-${('0' + this.date).slice(-2)}`
 				this.value = value
+				// this.$emit('input', value)
 				this.panelState = false
 			}, 0)
 		}
