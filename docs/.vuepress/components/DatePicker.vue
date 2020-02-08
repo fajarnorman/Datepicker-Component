@@ -82,7 +82,7 @@ export default {
 		},
 		width: {
 			type: Number,
-			default: ''
+			default: 100
 		}
 	},
 	data() {

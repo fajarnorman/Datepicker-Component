@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
-		"test": "jest",
-		"docs:dev": "vuepress dev docs",
+    "test": "jest",
+    "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
   "repository": {
